@@ -1,4 +1,24 @@
+# Using React in 2019
+Josh Kramer, presenting for RocDev
+
+These are the "starter files" for my presentation on 2019-04-25. Check all the git branches and history for progression through the demonstration.
+
+## Presentation topic overview
+1. React - 10 minute overview
+  * Create React App
+  * Components, JSX, props, state
+  * Lifecycle methods (https://twitter.com/dan_abramov/status/1019527421303951360)
+  * Debugger
+2. React in 2019
+  * React hooks
+    * Replacing state
+    * Replacing Redux
+    * Replacing lifecycle methods
+  * React suspense and lazy
+  * React.memo()
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 
