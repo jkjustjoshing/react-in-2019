@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  console.log('Rendering: App')
+
+  const [val1, setVal1] = useState(0)
+  const [val2, setVal2] = useState(0)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ValueContainer id='1' val={val1} setVal={setVal1} />
+      <ValueContainer id='2' val={val2} setVal={setVal2} />
     </div>
   );
+}
+
+const ValueContainer = ({ id, val, setVal }) => {
+  console.log(`Rendering: ValueContainer id=${id}, val=${val}`)
+
+  return (
+    <div>
+      Id {id} <button onClick={() => setVal(val+1)}>Increment val 2 - </button> {val}
+    </div>
+  )
 }
 
 export default App;
