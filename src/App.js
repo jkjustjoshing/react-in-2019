@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, lazy, Suspense } from 'react'
+import Loading from './components/Loading'
 import './App.css';
 
-function App() {
+const Clock = lazy(() => import('./components/tabs/Clock'))
+const Timer = lazy(() => import('./components/tabs/Timer'))
+
+
+const App = () => {
+
+  const [tab, setTab] = useState(null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className='App__nav'>
+        {
+          ['Clock', 'Timer'].map((item, index) => (
+            <button
+              key={index}
+              className={'App__nav-item' + (tab === index ? ' App__nav-item--active' : '')}
+              onClick={() => setTab(index)}
+            >{item}</button>
+          ))
+        }
+      </div>
+      <div className='App__body'>
+        <Suspense fallback={<Loading />}>
+          {
+            tab === 0 ? <Clock /> : null
+          }
+          {
+            tab === 1 ? <Timer /> : null
+          }
+        </Suspense>
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App
+
+// Use normal function so it gets hoisted to top
+function delay(fn) {
+  return () => (new Promise((resolve) => setTimeout(resolve, 1000))).then(fn)
+}
