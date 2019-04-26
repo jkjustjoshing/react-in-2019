@@ -1,25 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import useTimer from '../../useTimer'
 
 const Timer = () => {
 
-  let [ paused, setPaused ] = useState(false)
-  let [ timeLeft, setTimeLeft ] = useState(10)
-
-  useEffect(() => {
-    if (!paused) {
-      let timeout = setTimeout(() => {
-        setTimeLeft(timeLeft - 1)
-      }, 1000)
-      return () => clearTimeout(timeout)
-    }
-  }, [timeLeft, paused])
+  const [ timeLeft, paused, setPaused ] = useTimer(10, false)
 
   return (
     <div>
 
       <div>Time left: <Time seconds={timeLeft} /></div>
 
-      <button onClick={() => setPaused(!paused)}>{paused ? 'Start' : 'Pause'}</button>
+      <button
+        onClick={() => {
+          setPaused(!paused)
+        }}>
+          {paused ? 'Start' : 'Pause'}
+        </button>
     </div>
   )
 }
