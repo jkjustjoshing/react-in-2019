@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import useForceUpdate from './useForceUpdate'
 
 function App() {
 
@@ -13,35 +12,34 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <HeroLink text='Learn React' />
+        <HeroLink text='Unlearn React' />
       </header>
     </div>
   );
 }
 
-
-// DO NOT DO THIS!!!
-// THIS IS A DEMONSTRATION OF WHAT REACT IS *SORT OF*
-// DOING IN THE BACKGROUND FOR useState() HOOK. DO NOT
-// REPLECATE THIS METHOD.
-let counter = 0
-let setCounter = (newVal) => {
-  counter = newVal
-  // Somehow tell React to re-render
-}
-// end of DO NOT USE THIS
-
-
 const HeroLink = (props) => {
 
   const { text } = props
-  const forceUpdate = useForceUpdate()
+
+  const [counter, setCounter] = useState(0)
+  const [red, setRed] = useState(true)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRed(!red)
+    }, 1000)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [red])
 
   return (
     <div>
       <button
         onClick={() => {
           setCounter(counter + 1)
-          forceUpdate()
         }}
       >Increment</button> - {counter}
       <br />
@@ -50,6 +48,7 @@ const HeroLink = (props) => {
         href="https://reactjs.org"
         target="_blank"
         rel="noopener noreferrer"
+        style={{ background: red ? 'red' : 'transparent' }}
       >
         {text}
       </a>
@@ -57,7 +56,6 @@ const HeroLink = (props) => {
   )
 }
 
-// // Class example of component state and lifecycle methods
 // class HeroLink extends React.Component {
 
 //   state = { red: true, counter: 0 }
